@@ -10,7 +10,7 @@
 </head>
 <body onresize="Array.from(document.querySelectorAll('.tag')).forEach(tag => {setTagPosition(tag)})">
 	<h2>Drag&amp;Drop some text/image here</h2>
-	<div id="tags-container"
+	<div id="tags-container" 
 		ondragover="dragTag(this,event)"
 		ondblclick="if (event.target === document.getElementById('img')) addTag(undefined,event.clientX,event.clientY); return false"
 		ondrop="drop(event)"

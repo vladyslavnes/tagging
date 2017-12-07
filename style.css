@@ -18,8 +18,9 @@ img {
 .tag {
 	text-align: left;
 	position: absolute;
-	background-color: #00000077;
-	color: #ffffffdd;
+	background-color: #000000;
+	opacity: .75;
+	color: #fff;
 	padding: 5px;
 	border-radius: 4.5px;
 	-webkit-user-select: none;

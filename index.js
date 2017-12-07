@@ -4,13 +4,11 @@ function tagTemplate(content) {
 	return `<p class="tag" 
 		touchgable="true"
 		onclick="tapTag(this,event)"
-		ontap="tapTag(this,event)"
+		ontap="tapTag(this,event);tapTag(this,event)"
 		ontouchstart="touchTagStart(this,event)"
 		ontouch="touchTag(this,event)"
 		ondrop="dropTag(this,event)"
 		ondblclick="this.remove(); return false;"
-		onmouseover="makeTagActive(this,event)"
-		onmouseout="makeTagInactive(this,event)"
 		>
 		<span class="text">
 			#${content}
@@ -60,26 +58,18 @@ function setTagPosition(tag) {
 	}
 }
 
-function makeTagActive(tag,e) {
-	e.preventDefault()
-	setTagPosition(tag)
-	tag.querySelector('.rm').style.display = 'inline'
-}
-
-function makeTagInactive(tag,e) {
-	e.preventDefault()
-	tag.querySelector('.rm').style.display = 'none'
-	setTagPosition(tag)
-}
-
 function tapTag(tag,e) {
 	e.preventDefault()
+
+	tag.querySelector('.rm').style.display = tag.querySelector('.rm').style.display === 'none' ? 'inline' : 'none'
+
+
 	window.isDraggingTag = !window.isDraggingTag
 
 	if (window.isDraggingTag) {
 		window.ontouchmove = e => {
-			tag.style.left = e.touches[0].clientX+'px'
-			tag.style.top = e.touches[0].clientY + 'px'
+			tag.style.left = e.touches[0].clientX-10+'px'
+			tag.style.top = e.touches[0].clientY-5 + 'px'
 			setTagPosition(tag)
 		}
 	} else {
@@ -89,8 +79,7 @@ function tapTag(tag,e) {
 
 function touchTagStart(tag,e) {
 	e.preventDefault()
-	// e.dataTransfer.setData('html', e.target.children[0].innerText);
-	// touchTag(tag,e)
+	setTagPosition(tag)
 }
 
 function touchTag(tag,e) {
