@@ -1,0 +1,43 @@
+* {
+	margin: 0 auto;
+	padding: 0;
+	text-align: center;
+	overflow: hidden;
+}
+
+div {
+	display: inline-block;
+	border: 1px solid #000;
+}
+
+img {
+	position: static;
+	-webkit-user-select: none;
+}
+
+.tag {
+	text-align: left;
+	position: absolute;
+	background-color: #00000077;
+	color: #ffffffdd;
+	padding: 5px;
+	border-radius: 4.5px;
+	-webkit-user-select: none;
+	cursor: move;
+}
+
+.tag:after {
+	content: ' ';
+	display: table;
+}
+
+h2 {
+	font-size: 29px;
+}
+
+.rm {
+	cursor: move;
+	border-left: 1px solid #000;
+	cursor: pointer;
+	color: #f00;
+}

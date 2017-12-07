@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Tagging</title>
+	
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<link rel="stylesheet" href="style.css">
+</head>
+<body onresize="Array.from(document.querySelectorAll('.tag')).forEach(tag => {setTagPosition(tag)})">
+	<h2>Drag&amp;Drop some text/image here</h2>
+	<div id="tags-container"
+		ondragover="dragTag(this,event)"
+		ondblclick="if (event.target === document.getElementById('img')) addTag(undefined,event.clientX,event.clientY); return false"
+		ondrop="drop(event)"
+	>
+		<img draggable="false" id="img" src="image.jpg" alt="JS logo">
+	</div>
+	<script src="index.js"></script>
+</body>
+</html>
