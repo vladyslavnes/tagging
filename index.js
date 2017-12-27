@@ -2,17 +2,12 @@ var tagTexts = ['JSIsUnbelievable','addYourOwnImage','thisIsNotJSEmblem']
 
 function tagTemplate(content) {
 	return `<p class="tag" 
-		touchgable="true"
 		onclick="tapTag(this,event)"
 		ontap="tapTag(this,event);tapTag(this,event)"
 		ontouchstart="touchTagStart(this,event)"
 		ontouch="touchTag(this,event)"
-		ondrop="dropTag(this,event)"
-		ondblclick="this.remove(); return false;"
-		>
-		<span class="text">
-			#${content}
-		</span>
+		ondblclick="this.remove();">
+		<span class="text">${content}</span>
 		<span style="display: none;" class="rm" onclick="this.parentNode.remove()" ontouch="this.parentNode.remove()">X</span>
 	</p>`
 }
@@ -63,18 +58,22 @@ function tapTag(tag,e) {
 
 	tag.querySelector('.rm').style.display = tag.querySelector('.rm').style.display === 'none' ? 'inline' : 'none'
 
-
 	window.isDraggingTag = !window.isDraggingTag
 
-	if (window.isDraggingTag) {
-		window.ontouchmove = e => {
-			tag.style.left = e.touches[0].clientX-10+'px'
-			tag.style.top = e.touches[0].clientY-5 + 'px'
-			setTagPosition(tag)
+
+		if (e.touches[0]) {
+			window.ontouchmove = window.isDraggingTag ? e => {
+				tag.style.left = e.touches[0].clientX-10+'px'
+				tag.style.top = e.touches[0].clientY-5 + 'px'
+				setTagPosition(tag)
+			} : undefined
+		} else {
+			window.onmousemove = window.isDraggingTag ? e => {
+				tag.style.left = e.clientX-10+'px'
+				tag.style.top = e.clientY-5 + 'px'
+				setTagPosition(tag)
+			} : undefined
 		}
-	} else {
-		window.ontouchmove = undefined
-	}
 }
 
 function touchTagStart(tag,e) {
@@ -84,9 +83,14 @@ function touchTagStart(tag,e) {
 
 function touchTag(tag,e) {
 	e.preventDefault()
-	e.touches[0].clientX
 	tag.style.left = e.touches[0].clientX+'px'
 	tag.style.top = e.touches[0].clientY+'px'
+}
+
+function clickTag(tag,e) {
+	e.preventDefault()
+	tag.style.left = e.clientX+'px'
+	tag.style.top = e.clientY+'px'
 }
 
 function dropTag(tag,e) {
@@ -139,8 +143,7 @@ function drop(e) {
 	e.preventDefault()
 	var data = e.dataTransfer.getData('text/plain')
 	var imageURIRegExp = /(jpg|gif|png)$/
-	regExpTestResult = imageURIRegExp.test(data)
-	if (regExpTestResult) {
+	if (imageURIRegExp.test(data)) {
 		// image
 		e.target.setAttribute('src',data)
 	} else {

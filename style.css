@@ -23,13 +23,9 @@ img {
 	color: #fff;
 	padding: 5px;
 	border-radius: 4.5px;
+	display: flex;
 	-webkit-user-select: none;
 	cursor: move;
-}
-
-.tag:after {
-	content: ' ';
-	display: table;
 }
 
 h2 {
