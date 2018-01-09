@@ -8,7 +8,7 @@
 	
 	<link rel="stylesheet" href="style.css">
 </head>
-<body onresize="Array.from(document.querySelectorAll('.tag')).forEach(tag => {setTagPosition(tag)})">
+<body onresize="tags().forEach(tag => {setTagPosition(tag)})">
 	<h2>Drag&amp;Drop some text/image here</h2>
 	<div id="tags-container" 
 		ondragover="dragTag(this,event)"
